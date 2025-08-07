@@ -207,7 +207,20 @@ manual_specs_text = st.text_area(
     help="If a site blocks scraping, paste any text/specs from the product page here. I'll try to detect AWG, material, and packaging.",
     height=140
 )
-    with right:
+
+use_round_trip = st.checkbox("Treat each run as round–trip length (out-and-back)", value=True)
+conductor_count = st.number_input(
+    "Number of conductors in the cable (for multi–conductor cable)",
+    min_value=1, max_value=20, value=1, step=1
+)
+st.caption("For multi–conductor cables (e.g., 12/2), enter 2; tool multiplies footage accordingly.")
+
+manual_pack = st.text_input(
+    "Packaging override (comma–separated feet; e.g., 250,500,1000). Leave blank to use detected packaging.",
+    value=""
+)
+
+with right:
     st.subheader("Parsed product specs")
     specs = {}
 
@@ -215,7 +228,7 @@ manual_specs_text = st.text_area(
         # Try to detect specs from pasted text
         specs = {
             "url": "(manual input)",
-            "detected_awg": parse_awg(manual_specs_text),
+            "detected_avg": parse_avg(manual_specs_text),
             "material": detect_material(manual_specs_text),
         }
         pl, pu = parse_pack_length(manual_specs_text)
@@ -231,6 +244,7 @@ manual_specs_text = st.text_area(
         except Exception as e:
             st.error(f"Couldn't fetch/parse the page: {e}")
             specs = {"url": url}
+
 
 
         st.subheader("Electrical assumptions")

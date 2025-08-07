@@ -246,7 +246,7 @@ with right:
         # Try to detect specs from pasted text
         specs = {
             "url": "(manual input)",
-            "detected_avg": parse_avg(manual_specs_text),
+            "detected_awg": parse_awg(manual_specs_text),
             "material": detect_material(manual_specs_text),
         }
         pl, pu = parse_pack_length(manual_specs_text)

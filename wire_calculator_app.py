@@ -187,11 +187,20 @@ manual_specs_text = st.text_area(
     help="If a site blocks scraping, paste any text/specs from the product page here. I'll try to detect AWG, material, and packaging.",
     height=140
 )
-        use_round_trip = st.checkbox("Treat each run as round-trip length (out-and-back)", value=True)
-        conductor_count = st.number_input("Number of conductors in the cable (for multi-conductor cable)", min_value=1, max_value=20, value=1, step=1)
-        st.caption("For multi-conductor cables (e.g., 12/2), enter 2; tool multiplies footage accordingly.")
 
-        manual_pack = st.text_input("Packaging override (comma-separated feet; e.g., 250,500,1000). Leave blank to use detected packaging.", value="")
+use_round_trip = st.checkbox("Treat each run as round-trip length (out-and-back)", value=True)
+
+conductor_count = st.number_input(
+    "Number of conductors in the cable (for multi-conductor cable)",
+    min_value=1, max_value=20, value=1, step=1
+)
+st.caption("For multi-conductor cables (e.g., 12/2), enter 2; tool multiplies footage accordingly.")
+
+manual_pack = st.text_input(
+    "Packaging override (comma-separated feet; e.g., 250,500,1000). Leave blank to use detected packaging.",
+    value=""
+)
+
 
 manual_specs_text = st.text_area(
     "Or paste product specs (optional)",

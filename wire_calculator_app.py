@@ -109,7 +109,7 @@ def generic_scrape(soup: BeautifulSoup):
 
 def extract_specs(url: str):
     html = fetch_html(url)
-    soup = BeautifulSoup(html, "lxml")
+   soup = BeautifulSoup(html, "html.parser")
     host = urlparse(url).hostname or ""
     data = {}
     if "cityelectricsupply.com" in host:

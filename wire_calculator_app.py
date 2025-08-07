@@ -211,7 +211,7 @@ with top:
             value=""
         )
 
-    # ---------------- RIGHT COLUMN ----------------
+     # ---------------- RIGHT COLUMN ----------------
     with right:
         st.subheader("Parsed product specs")
         specs = {}
@@ -237,42 +237,15 @@ with top:
                 st.error(f"Couldn't fetch/parse the page: {e}")
                 specs = {"url": url}
 
-
-with right:
-    st.subheader("Parsed product specs")
-    specs = {}
-
-    if manual_specs_text.strip():
-        # Try to detect specs from pasted text
-        specs = {
-            "url": "(manual input)",
-            "detected_awg": parse_awg(manual_specs_text),
-            "material": detect_material(manual_specs_text),
-        }
-        pl, pu = parse_pack_length(manual_specs_text)
-        specs["pack_length_ft"] = pl
-        specs["pack_unit"] = pu
-        st.success("Parsed from pasted specs.")
-        st.json(specs)
-
-    elif url.strip():
-        try:
-            specs = extract_specs(url)
-            st.json(specs)
-        except Exception as e:
-            st.error(f"Couldn't fetch/parse the page: {e}")
-            specs = {"url": url}
-
-
-
-        st.subheader("Electrical assumptions")
-        col1, col2 = st.columns(2)
-        with col1:
-            volts = st.number_input("System voltage", min_value=12.0, max_value=600.0, value=120.0, step=1.0)
-            amps = st.number_input("Circuit current (A)", min_value=0.0, value=15.0, step=0.5)
-        with col2:
-            max_drop = st.number_input("Max allowable voltage drop (%)", min_value=1.0, max_value=10.0, value=3.0, step=0.5)
-            material_override = st.selectbox("Conductor material (if known)", ["auto-detect", "copper", "aluminum"])
+# ---------------- ELECTRICAL ASSUMPTIONS ----------------
+st.subheader("Electrical assumptions")
+col1, col2 = st.columns(2)
+with col1:
+    volts = st.number_input("System voltage", min_value=12.0, max_value=600.0, value=120.0, step=1.0)
+    amps = st.number_input("Circuit current (A)", min_value=0.0, value=15.0, step=0.5)
+with col2:
+    max_drop = st.number_input("Max allowable voltage drop (%)", min_value=1.0, max_value=10.0, value=3.0, step=0.5)
+    material_override = st.selectbox("Conductor material (if known)", ["auto-detect", "copper", "aluminum"])
 
 st.markdown("---")
 

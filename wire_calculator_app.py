@@ -109,7 +109,7 @@ def generic_scrape(soup: BeautifulSoup):
 
 def extract_specs(url: str):
     html = fetch_html(url)
-   soup = BeautifulSoup(html, "html.parser")
+    soup = BeautifulSoup(html, "html.parser")
     host = urlparse(url).hostname or ""
     data = {}
     if "cityelectricsupply.com" in host:
@@ -119,6 +119,7 @@ def extract_specs(url: str):
 
     data["url"] = url
     return data
+
 
 # Resistances per 1000 ft at ~75°C (approx), source: common tables
 COPPER_OHMS_PER_KFT = {
